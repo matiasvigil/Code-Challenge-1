@@ -1,23 +1,22 @@
-package com.challenge.pacman;
+package com.challenge.games.impl;
 
-import static com.challenge.pacman.Constants.MAX_X;
-import static com.challenge.pacman.Constants.MAX_Y;
-import static com.challenge.pacman.Constants.MIN_X;
-import static com.challenge.pacman.Constants.MIN_Y;
+import static com.challenge.Constants.MAX_X;
+import static com.challenge.Constants.MAX_Y;
+import static com.challenge.Constants.MIN_X;
+import static com.challenge.Constants.MIN_Y;
+
+import com.challenge.games.Game;
+import com.challenge.Orientation;
 
 /**
  * @author Matias Vigil
  * @project pacman
  */
-public class Pacman {
+public class Pacman implements Game {
 
     private Integer xPosition;
     private Integer yPosition;
     private Orientation facing;
-
-    public Pacman(Integer x, Integer y, Orientation orientation) {
-        setPlace(x, y, orientation);
-    }
 
     public void setPlace(Integer x, Integer y, Orientation orientation) {
         this.facing = orientation;

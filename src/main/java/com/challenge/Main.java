@@ -1,8 +1,11 @@
-package com.challenge.pacman;
+package com.challenge;
 
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.challenge.factories.GameFactory;
+import com.challenge.games.Game;
 
 /**
  * @author Matias Vigil
@@ -10,39 +13,40 @@ import java.util.logging.Logger;
  */
 public class Main {
 
-    private static final Logger LOGGER = Logger.getLogger(Pacman.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Game.class.getName());
     private static final Scanner scanner = new Scanner(System.in);
     private static final String ERROR_CONFIGURING_GAME = "Error configuring new game with: ";
-
+    private static final Game.Type GAME_TYPE = Game.Type.PACMAN;
 
     public static void main(String[] args) {
-        Pacman pacmanGame = null;
+        Game gameInstance = null;
+
         String line;
         while (scanner.hasNextLine()) {
             line = scanner.nextLine();
             if (line.startsWith(Constants.PLACE.toLowerCase()) || line.startsWith(Constants.PLACE.toUpperCase())) {
-                pacmanGame = getPacmanGame(line, pacmanGame);
-                if (pacmanGame == null) {
+                gameInstance = getGameInstance(line, gameInstance);
+                if (gameInstance == null) {
                     LOGGER.log(Level.SEVERE, ERROR_CONFIGURING_GAME + line);
                 }
             }
-            if (line.equalsIgnoreCase(Constants.MOVE) && pacmanGame != null) {
-                pacmanGame.move();
+            if (line.equalsIgnoreCase(Constants.MOVE) && gameInstance != null) {
+                gameInstance.move();
             }
-            if (line.equalsIgnoreCase(Constants.LEFT) && pacmanGame != null) {
-                pacmanGame.left();
+            if (line.equalsIgnoreCase(Constants.LEFT) && gameInstance != null) {
+                gameInstance.left();
             }
-            if (line.equalsIgnoreCase(Constants.RIGHT) && pacmanGame != null) {
-                pacmanGame.right();
+            if (line.equalsIgnoreCase(Constants.RIGHT) && gameInstance != null) {
+                gameInstance.right();
             }
-            if (line.equalsIgnoreCase(Constants.REPORT) && pacmanGame != null) {
-                LOGGER.info(pacmanGame.report());
+            if (line.equalsIgnoreCase(Constants.REPORT) && gameInstance != null) {
+                LOGGER.info(gameInstance.report());
             }
         }
     }
 
-    private static Pacman getPacmanGame(String line, Pacman currentGame) {
-        Pacman game = currentGame;
+    private static Game getGameInstance(String line, Game currentGame) {
+        Game game = currentGame;
         try {
             String[] values = line.split(" ")[1].split(",");
             Integer x = Integer.parseInt(values[0]);
@@ -50,10 +54,9 @@ public class Main {
             Orientation orientation = Orientation.getOrientation(values[2]);
             if (x != null && y != null && orientation != null) {
                 if (game == null) {
-                    game = new Pacman(x, y, orientation);
-                } else {
-                    game.setPlace(x, y, orientation);
+                    game = GameFactory.getGame(GAME_TYPE);
                 }
+                game.setPlace(x, y, orientation);
             } else {
                 LOGGER.log(Level.SEVERE, ERROR_CONFIGURING_GAME + line);
             }

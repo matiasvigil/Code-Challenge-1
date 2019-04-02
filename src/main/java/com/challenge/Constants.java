@@ -1,4 +1,4 @@
-package com.challenge.pacman;
+package com.challenge;
 
 /**
  * @author Matias Vigil

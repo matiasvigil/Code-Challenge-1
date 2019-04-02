@@ -1,5 +1,8 @@
 package com.challenge.pacman;
 
+import com.challenge.Orientation;
+import com.challenge.factories.GameFactory;
+import com.challenge.games.Game;
 import org.junit.Test;
 
 /**
@@ -10,14 +13,16 @@ public class Tests {
 
     @Test
     public void test1() {
-        Pacman pacman = new Pacman(0, 0, Orientation.NORTH);
+        Game pacman = GameFactory.getGame(Game.Type.PACMAN);
+        pacman.setPlace(0, 0, Orientation.NORTH);
         pacman.move();
         assert pacman.report().equalsIgnoreCase("0,1,NORTH");
     }
 
     @Test
     public void test2() {
-        Pacman pacman = new Pacman(0, 0, Orientation.NORTH);
+        Game pacman = GameFactory.getGame(Game.Type.PACMAN);
+        pacman.setPlace(0, 0, Orientation.NORTH);
         pacman.left();
         assert pacman.report().equalsIgnoreCase("0,0,WEST");
     }
@@ -25,7 +30,8 @@ public class Tests {
 
     @Test
     public void test3() {
-        Pacman pacman = new Pacman(1, 2, Orientation.EAST);
+        Game pacman = GameFactory.getGame(Game.Type.PACMAN);
+        pacman.setPlace(1, 2, Orientation.EAST);
         pacman.move();
         pacman.move();
         pacman.left();
@@ -36,7 +42,8 @@ public class Tests {
 
     @Test
     public void testDontMoveOffTheGridEast() {
-        Pacman pacman = new Pacman(1, 2, Orientation.EAST);
+        Game pacman = GameFactory.getGame(Game.Type.PACMAN);
+        pacman.setPlace(1, 2, Orientation.EAST);
         pacman.move();
         pacman.move();
         pacman.move();
@@ -47,7 +54,8 @@ public class Tests {
 
     @Test
     public void testDontMoveOffTheGridWest() {
-        Pacman pacman = new Pacman(1, 2, Orientation.WEST);
+        Game pacman = GameFactory.getGame(Game.Type.PACMAN);
+        pacman.setPlace(1, 2, Orientation.WEST);
         pacman.move();
         pacman.move();
         pacman.move();
@@ -58,7 +66,8 @@ public class Tests {
 
     @Test
     public void testDontMoveOffTheGridNorth() {
-        Pacman pacman = new Pacman(1, 2, Orientation.NORTH);
+        Game pacman = GameFactory.getGame(Game.Type.PACMAN);
+        pacman.setPlace(1, 2, Orientation.NORTH);
         pacman.move();
         pacman.move();
         pacman.move();
@@ -69,7 +78,8 @@ public class Tests {
 
     @Test
     public void testDontMoveOffTheGridSouth() {
-        Pacman pacman = new Pacman(1, 2, Orientation.SOUTH);
+        Game pacman = GameFactory.getGame(Game.Type.PACMAN);
+        pacman.setPlace(1, 2, Orientation.SOUTH);
         pacman.move();
         pacman.move();
         pacman.move();
@@ -81,7 +91,8 @@ public class Tests {
 
     @Test
     public void testLeftCircle() {
-        Pacman pacman = new Pacman(1, 2, Orientation.SOUTH);
+        Game pacman = GameFactory.getGame(Game.Type.PACMAN);
+        pacman.setPlace(1, 2, Orientation.SOUTH);
         pacman.move();
         pacman.left();
         pacman.move();
@@ -94,7 +105,8 @@ public class Tests {
     }
     @Test
     public void testRightCircle() {
-        Pacman pacman = new Pacman(1, 2, Orientation.SOUTH);
+        Game pacman = GameFactory.getGame(Game.Type.PACMAN);
+        pacman.setPlace(1, 2, Orientation.SOUTH);
         pacman.move();
         pacman.right();
         pacman.move();
